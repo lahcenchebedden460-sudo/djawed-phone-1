@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>جاود فون - هواتف وإكسسوارات بأفضل الأسعار</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== TOP BAR ===== -->
+<div class="top-bar">
+  <div class="container">
+    <div class="top-bar-content">
+      <div class="top-bar-right">
+        <span><i class="fas fa-phone"></i> +213 555 12 34 56</span>
+        <span><i class="fas fa-envelope"></i> djawed.phone@gmail.com</span>
+      </div>
+      <div class="top-bar-left">
+        <span><i class="fas fa-clock"></i> الأحد - الجمعة: 09:00 - 22:00</span>
+        <a href="#" onclick="openModal('loginModal')"><i class="fas fa-user"></i> تسجيل الدخول</a>
+        <a href="#" onclick="openModal('registerModal')"><i class="fas fa-user-plus"></i> إنشاء حساب</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header class="header" id="mainHeader">
+  <div class="container">
+    <div class="header-content">
+      <!-- Logo -->
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fas fa-mobile-alt"></i></div>
+        <div class="logo-text">
+          <span class="logo-main">djawed</span>
+          <span class="logo-sub">phone</span>
+        </div>
+      </a>
+
+      <!-- Search Bar -->
+      <div class="search-bar">
+        <input type="text" id="headerSearch" placeholder="ابحث عن هاتف أو منتج..." onkeyup="liveSearch(this.value)">
+        <button onclick="doSearch()"><i class="fas fa-search"></i></button>
+        <div class="search-dropdown" id="searchDropdown"></div>
+      </div>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <button class="action-btn" onclick="openModal('wishlistModal')" title="المفضلة">
+          <i class="fas fa-heart"></i>
+          <span class="badge" id="wishlistCount">0</span>
+        </button>
+        <button class="action-btn" onclick="openCart()" title="السلة">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="badge" id="cartCount">0</span>
+        </button>
+        <button class="action-btn user-btn" onclick="toggleUserMenu()" title="حسابي">
+          <i class="fas fa-user-circle"></i>
+        </button>
+        <div class="user-dropdown" id="userDropdown">
+          <div id="userMenuGuest">
+            <a href="#" onclick="openModal('loginModal'); closeUserMenu()"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</a>
+            <a href="#" onclick="openModal('registerModal'); closeUserMenu()"><i class="fas fa-user-plus"></i> إنشاء حساب</a>
+          </div>
+          <div id="userMenuLoggedIn" style="display:none">
+            <div class="user-info-menu" id="userInfoMenu"></div>
+            <a href="#" onclick="openModal('ordersModal'); closeUserMenu()"><i class="fas fa-box"></i> طلباتي</a>
+            <a href="#" onclick="openModal('wishlistModal'); closeUserMenu()"><i class="fas fa-heart"></i> المفضلة</a>
+            <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</a>
+          </div>
+          <div id="userMenuAdmin" style="display:none">
+            <div class="user-info-menu admin-badge"><i class="fas fa-shield-alt"></i> مدير النظام</div>
+            <a href="#" onclick="openAdmin(); closeUserMenu()"><i class="fas fa-tachometer-alt"></i> لوحة التحكم</a>
+            <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</a>
+          </div>
+        </div>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== NAVIGATION ===== -->
+<nav class="main-nav" id="mainNav">
+  <div class="container">
+    <ul class="nav-list" id="navList">
+      <li><a href="#home" class="nav-link active"><i class="fas fa-home"></i> الرئيسية</a></li>
+      <li class="has-dropdown">
+        <a href="#phones" class="nav-link"><i class="fas fa-mobile-alt"></i> الهواتف <i class="fas fa-chevron-down"></i></a>
+        <ul class="dropdown">
+          <li><a href="#" onclick="filterByBrand('apple')"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" width="14"> Apple iPhone</a></li>
+          <li><a href="#" onclick="filterByBrand('samsung')"><img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Samsung_Logo.svg" width="50"> Samsung</a></li>
+          <li><a href="#" onclick="filterByBrand('xiaomi')">Xiaomi</a></li>
+          <li><a href="#" onclick="filterByBrand('realme')">Realme</a></li>
+          <li><a href="#" onclick="filterByBrand('tecno')">Tecno</a></li>
+          <li><a href="#" onclick="filterByBrand('infinix')">Infinix</a></li>
+          <li><a href="#" onclick="filterByBrand('oneplus')">OnePlus</a></li>
+        </ul>
+      </li>
+      <li><a href="#accessories" class="nav-link"><i class="fas fa-headphones"></i> الإكسسوارات</a></li>
+      <li><a href="#offers" class="nav-link"><i class="fas fa-tags"></i> العروض</a></li>
+      <li><a href="#maintenance" class="nav-link"><i class="fas fa-wrench"></i> الصيانة</a></li>
+      <li><a href="#used" class="nav-link"><i class="fas fa-recycle"></i> الأجهزة المستعملة</a></li>
+      <li><a href="#exchange" class="nav-link"><i class="fas fa-exchange-alt"></i> استبدال جهازك</a></li>
+      <li><a href="#tracking" class="nav-link"><i class="fas fa-truck"></i> تتبع طلبك</a></li>
+      <li><a href="#contact" class="nav-link"><i class="fas fa-phone"></i> اتصل بنا</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ===== HERO SECTION ===== -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-badge"><i class="fas fa-bolt"></i> الأحدث في السوق</div>
+        <h1 class="hero-title">
+          <span class="brand-name-hero">djawed</span>
+          <span class="brand-red">phone</span>
+        </h1>
+        <p class="hero-subtitle">كل ما تحتاجه من هواتف ذكية وإكسسوارات<br>بأفضل الأسعار وأعلى جودة</p>
+        <div class="hero-features">
+          <div class="feature-item"><i class="fas fa-shield-alt"></i><span>ضمان حقيقي</span></div>
+          <div class="feature-item"><i class="fas fa-shipping-fast"></i><span>شحن سريع</span></div>
+          <div class="feature-item"><i class="fas fa-certificate"></i><span>أصلية 100%</span></div>
+          <div class="feature-item"><i class="fas fa-headset"></i><span>دعم فني 24/7</span></div>
+        </div>
+        <div class="hero-btns">
+          <button class="btn-primary" onclick="scrollTo('#phones')"><i class="fas fa-shopping-bag"></i> تسوق الآن</button>
+          <a href="https://wa.me/213555123456" class="btn-whatsapp" target="_blank"><i class="fab fa-whatsapp"></i> تواصل معنا</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="phone-showcase">
+          <div class="phone-glow"></div>
+          <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-finish-select-202309-6-7inch-naturaltitanium?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1692845702708" alt="iPhone" class="hero-phone-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22400%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23f0f0f0%22 rx=%2240%22/><text x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23999%22 font-size=%2240%22>📱</text></svg>'">
+          <div class="phone-badge-hero"><i class="fas fa-check-circle"></i> الأصل فقط<br><small>مضمون 100%</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll"><i class="fas fa-chevron-down"></i></div>
+</section>
+
+<!-- ===== BRANDS SECTION ===== -->
+<section class="brands-section">
+  <div class="container">
+    <div class="brands-strip">
+      <button class="brand-btn active" onclick="filterByBrand('all')">
+        <i class="fas fa-th"></i> جميع الماركات
+      </button>
+      <button class="brand-btn" onclick="filterByBrand('apple')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple" height="20">
+      </button>
+      <button class="brand-btn" onclick="filterByBrand('samsung')">
+        <span style="font-weight:800;font-size:14px;color:#1428A0;">SAMSUNG</span>
+      </button>
+      <button class="brand-btn" onclick="filterByBrand('xiaomi')">
+        <span style="font-weight:700;font-size:14px;color:#FF6900;">mi</span> xiaomi
+      </button>
+      <button class="brand-btn" onclick="filterByBrand('realme')">
+        <span style="font-weight:700;color:#FFD700;">realme</span>
+      </button>
+      <button class="brand-btn" onclick="filterByBrand('tecno')">
+        <span style="font-weight:700;">TECNO</span>
+      </button>
+      <button class="brand-btn" onclick="filterByBrand('infinix')">
+        <span style="font-weight:700;">Infinix</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICES BAR ===== -->
+<section class="services-bar">
+  <div class="container">
+    <div class="services-grid">
+      <div class="service-item">
+        <i class="fas fa-headset"></i>
+        <div><strong>خدمة عملاء 24/7</strong><p>نحن هنا لمساعدتك</p></div>
+      </div>
+      <div class="service-item">
+        <i class="fas fa-shield-alt"></i>
+        <div><strong>المستعمل الموثوق</strong><p>أجهزة بحالة ممتازة</p></div>
+      </div>
+      <div class="service-item">
+        <i class="fas fa-truck"></i>
+        <div><strong>تتبع الطلب</strong><p>تابع طلبك أولاً بأول</p></div>
+      </div>
+      <div class="service-item">
+        <i class="fas fa-qrcode"></i>
+        <div><strong>استبدال جهازك</strong><p>احصل على أفضل سعر</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== OFFERS + NEW PHONES SECTION ===== -->
+<section class="products-section" id="phones">
+  <div class="container">
+    <div class="products-layout">
+
+      <!-- Flash Offer Card -->
+      <div class="flash-offer-card" id="flashOfferCard">
+        <div class="flash-header">
+          <i class="fas fa-bolt"></i> عرض اليوم
+          <span class="dont-miss">لا تفوت الفرصة!</span>
+        </div>
+        <div class="flash-timer">
+          <div class="timer-block"><span id="timerH">08</span><small>ساعة</small></div>
+          <div class="timer-sep">:</div>
+          <div class="timer-block"><span id="timerM">32</span><small>دقيقة</small></div>
+          <div class="timer-sep">:</div>
+          <div class="timer-block"><span id="timerS">15</span><small>ثانية</small></div>
+        </div>
+        <div class="flash-product" id="flashProduct">
+          <!-- filled by JS -->
+        </div>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="products-main">
+        <div class="section-header">
+          <h2 class="section-title">أحدث الهواتف</h2>
+          <a href="#" class="view-all" onclick="showAllProducts()"><i class="fas fa-chevron-left"></i> عرض الكل</a>
+        </div>
+        <div class="products-grid" id="productsGrid">
+          <!-- filled by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ACCESSORIES SECTION ===== -->
+<section class="accessories-section" id="accessories">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">الإكسسوارات</h2>
+      <a href="#" class="view-all"><i class="fas fa-chevron-left"></i> عرض الكل</a>
+    </div>
+    <div class="products-grid" id="accessoriesGrid">
+      <!-- filled by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ===== TRUST BADGES ===== -->
+<section class="trust-section">
+  <div class="container">
+    <div class="trust-grid">
+      <div class="trust-item"><i class="fas fa-shield-alt"></i><strong>ضمان معتمد</strong><p>من وكالات رسمية</p></div>
+      <div class="trust-item"><i class="fas fa-credit-card"></i><strong>تقسيط مريح</strong><p>خطط دفع تناسبك</p></div>
+      <div class="trust-item"><i class="fas fa-file-invoice"></i><strong>فواتير رسمية</strong><p>لضمان حقوقك</p></div>
+      <div class="trust-item"><i class="fas fa-shipping-fast"></i><strong>شحن سريع</strong><p>لكافة الولايات</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EXCHANGE + USED + MAINTENANCE + MAP ===== -->
+<section class="info-sections" id="used">
+  <div class="container">
+    <div class="info-grid">
+
+      <div class="info-card exchange-card" id="exchange">
+        <h3><i class="fas fa-exchange-alt"></i> استبدال جهازك</h3>
+        <p>احصل على تقييم لجهازك القديم</p>
+        <img src="https://images.unsplash.com/photo-1512054502232-10a0a035d672?w=300&h=200&fit=crop" alt="استبدال" class="info-card-img" onerror="this.style.display='none'">
+        <button class="btn-red" onclick="openModal('exchangeModal')">ابدأ الآن</button>
+      </div>
+
+      <div class="info-card used-card">
+        <h3><i class="fas fa-recycle"></i> المستعمل الموثوق</h3>
+        <p>أجهزة مستعملة بحالة ممتازة وضمان من المحل</p>
+        <img src="https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=300&h=200&fit=crop" alt="مستعملة" class="info-card-img" onerror="this.style.display='none'">
+        <button class="btn-red">عرض الأجهزة</button>
+      </div>
+
+      <div class="info-card maintenance-card" id="maintenance">
+        <h3><i class="fas fa-wrench"></i> خدمات الصيانة</h3>
+        <ul class="services-list">
+          <li><i class="fas fa-chevron-left"></i> تغيير شاشة</li>
+          <li><i class="fas fa-chevron-left"></i> تغيير بطارية</li>
+          <li><i class="fas fa-chevron-left"></i> إصلاح الشحن</li>
+          <li><i class="fas fa-chevron-left"></i> برمجيات وتحديثات</li>
+        </ul>
+        <button class="btn-red" onclick="openModal('maintenanceModal')">احجز الآن</button>
+      </div>
+
+      <div class="info-card map-card">
+        <h3><i class="fas fa-map-marker-alt"></i> موقع المحل</h3>
+        <p>تفضل بزيارتنا في المحل</p>
+        <div class="map-placeholder" id="contact">
+          <div class="map-pin-big"><i class="fas fa-map-marker-alt"></i></div>
+          <p>سطيف، الجزائر</p>
+          <small>شارع العربي بن مهيدي</small>
+        </div>
+        <button class="btn-outline" onclick="window.open('https://maps.google.com/?q=Setif+Algeria','_blank')">اعرض على الخريطة</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== ORDER TRACKING ===== -->
+<section class="tracking-section" id="tracking">
+  <div class="container">
+    <div class="tracking-box">
+      <div class="tracking-icon"><i class="fas fa-truck"></i></div>
+      <div class="tracking-content">
+        <h3>تتبع طلبك</h3>
+        <p>أدخل رقم طلبك لمعرفة حالته</p>
+        <div class="tracking-input-group">
+          <input type="text" id="trackingInput" placeholder="رقم الطلب مثال: ORD-2024-001">
+          <button onclick="trackOrder()"><i class="fas fa-search"></i> تتبع</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STATS SECTION ===== -->
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-header">
+      <a href="index.html" class="logo logo-white">
+        <div class="logo-icon"><i class="fas fa-mobile-alt"></i></div>
+        <div class="logo-text"><span class="logo-main">djawed</span><span class="logo-sub">phone</span></div>
+      </a>
+      <div class="stats-tagline">
+        <strong>خبرة، ثقة، وضمان</strong>
+        <p>هدفنا هو رضا زبائننا وتقديم الأفضل دائماً</p>
+      </div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-item"><span class="stat-number">+1200</span><span class="stat-label">عميل راضٍ</span></div>
+      <div class="stat-item"><span class="stat-number">+350</span><span class="stat-label">منتج متوفر</span></div>
+      <div class="stat-item"><span class="stat-number">+5</span><span class="stat-label">سنوات من الخبرة</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <div class="logo-icon"><i class="fas fa-mobile-alt"></i></div>
+          <div class="logo-text"><span class="logo-main">djawed</span><span class="logo-sub">phone</span></div>
+        </a>
+        <p>جميع الحقوق محفوظة ©2024<br>تجربة تسوق مختلفة تبدأ من هنا</p>
+        <div class="social-links">
+          <a href="#" class="social-link fb"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-link ig"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-link tt"><i class="fab fa-tiktok"></i></a>
+          <a href="#" class="social-link yt"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>روابط سريعة</h4>
+        <ul>
+          <li><a href="#">عن المحل</a></li>
+          <li><a href="#">شروط الضمان</a></li>
+          <li><a href="#">الشروط والأحكام</a></li>
+          <li><a href="#">سياسة الخصوصية</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>خدمة العملاء</h4>
+        <ul>
+          <li><a href="tel:+213555123456"><i class="fas fa-phone"></i> +213 555 12 34 56</a></li>
+          <li><a href="mailto:djawed.phone@gmail.com"><i class="fas fa-envelope"></i> djawed.phone@gmail.com</a></li>
+          <li><span><i class="fas fa-clock"></i> الأحد - الجمعة: 09:00 - 22:00</span></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>تابعنا</h4>
+        <div class="footer-social-big">
+          <a href="#" class="social-big fb"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-big ig"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-big tt"><i class="fab fa-tiktok"></i></a>
+          <a href="#" class="social-big yt"><i class="fab fa-youtube"></i></a>
+        </div>
+        <a href="https://wa.me/213555123456" class="whatsapp-float-footer" target="_blank">
+          <i class="fab fa-whatsapp"></i> تواصل عبر واتساب
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== WHATSAPP FLOAT ===== -->
+<a href="https://wa.me/213555123456" class="whatsapp-float" target="_blank" title="واتساب">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- ===== SCROLL TO TOP ===== -->
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <i class="fas fa-chevron-up"></i>
+</button>
+
+<!-- ===================================== -->
+<!-- ============== MODALS ============== -->
+<!-- ===================================== -->
+
+<!-- Login Modal -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</h3>
+      <button class="modal-close" onclick="closeModal('loginModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>البريد الإلكتروني أو اسم المستخدم</label>
+        <input type="text" id="loginEmail" placeholder="أدخل بريدك الإلكتروني">
+      </div>
+      <div class="form-group">
+        <label>كلمة المرور</label>
+        <div class="password-field">
+          <input type="password" id="loginPassword" placeholder="أدخل كلمة المرور">
+          <button type="button" onclick="togglePwd('loginPassword')"><i class="fas fa-eye"></i></button>
+        </div>
+      </div>
+      <div id="loginError" class="form-error" style="display:none"></div>
+      <button class="btn-red full-width" onclick="login()"><i class="fas fa-sign-in-alt"></i> دخول</button>
+      <p class="modal-footer-text">ليس لديك حساب؟ <a href="#" onclick="switchModal('loginModal','registerModal')">إنشاء حساب جديد</a></p>
+      <p class="modal-footer-text"><small>للوصول للوحة التحكم استخدم: admin@djawed.com / admin123</small></p>
+    </div>
+  </div>
+</div>
+
+<!-- Register Modal -->
+<div class="modal-overlay" id="registerModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3><i class="fas fa-user-plus"></i> إنشاء حساب جديد</h3>
+      <button class="modal-close" onclick="closeModal('registerModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>الاسم الكامل</label>
+        <input type="text" id="regName" placeholder="أدخل اسمك الكامل">
+      </div>
+      <div class="form-group">
+        <label>رقم الهاتف</label>
+        <input type="tel" id="regPhone" placeholder="0555 XX XX XX">
+      </div>
+      <div class="form-group">
+        <label>البريد الإلكتروني</label>
+        <input type="email" id="regEmail" placeholder="example@email.com">
+      </div>
+      <div class="form-group">
+        <label>كلمة المرور</label>
+        <div class="password-field">
+          <input type="password" id="regPassword" placeholder="8 أحرف على الأقل">
+          <button type="button" onclick="togglePwd('regPassword')"><i class="fas fa-eye"></i></button>
+        </div>
+      </div>
+      <div id="regError" class="form-error" style="display:none"></div>
+      <div id="regSuccess" class="form-success" style="display:none"></div>
+      <button class="btn-red full-width" onclick="register()"><i class="fas fa-user-plus"></i> إنشاء الحساب</button>
+      <p class="modal-footer-text">لديك حساب؟ <a href="#" onclick="switchModal('registerModal','loginModal')">تسجيل الدخول</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- Product Detail Modal -->
+<div class="modal-overlay" id="productModal">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <h3 id="productModalTitle">تفاصيل المنتج</h3>
+      <button class="modal-close" onclick="closeModal('productModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body" id="productModalBody"></div>
+  </div>
+</div>
+
+<!-- Cart Modal -->
+<div class="modal-overlay" id="cartModal">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <h3><i class="fas fa-shopping-cart"></i> سلة التسوق</h3>
+      <button class="modal-close" onclick="closeModal('cartModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body" id="cartModalBody"></div>
+  </div>
+</div>
+
+<!-- Checkout Modal -->
+<div class="modal-overlay" id="checkoutModal">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <h3><i class="fas fa-credit-card"></i> إتمام الطلب</h3>
+      <button class="modal-close" onclick="closeModal('checkoutModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="checkout-steps">
+        <div class="checkout-step active" id="step1">
+          <h4><i class="fas fa-user"></i> بيانات التوصيل</h4>
+          <div class="form-group"><label>الاسم الكامل</label><input type="text" id="coName" placeholder="اسمك الكامل"></div>
+          <div class="form-group"><label>رقم الهاتف</label><input type="tel" id="coPhone" placeholder="0555 XX XX XX"></div>
+          <div class="form-group"><label>الولاية</label>
+            <select id="coWilaya">
+              <option value="">اختر الولاية</option>
+              <option>الجزائر العاصمة</option><option>سطيف</option><option>عنابة</option><option>وهران</option><option>قسنطينة</option><option>بجاية</option><option>تلمسان</option><option>باتنة</option><option>بسكرة</option><option>تيزي وزو</option>
+            </select>
+          </div>
+          <div class="form-group"><label>العنوان التفصيلي</label><textarea id="coAddress" placeholder="الشارع، الحي، المدينة..." rows="2"></textarea></div>
+          <h4><i class="fas fa-money-bill-wave"></i> طريقة الدفع</h4>
+          <div class="payment-methods">
+            <label class="payment-option">
+              <input type="radio" name="payment" value="cash" checked>
+              <span><i class="fas fa-money-bill-wave"></i> الدفع عند الاستلام</span>
+            </label>
+            <label class="payment-option">
+              <input type="radio" name="payment" value="online">
+              <span><i class="fas fa-credit-card"></i> دفع إلكتروني</span>
+            </label>
+          </div>
+          <div class="checkout-summary" id="checkoutSummary"></div>
+          <div id="checkoutError" class="form-error" style="display:none"></div>
+          <button class="btn-red full-width" onclick="placeOrder()"><i class="fas fa-check-circle"></i> تأكيد الطلب</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Orders Modal -->
+<div class="modal-overlay" id="ordersModal">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <h3><i class="fas fa-box"></i> طلباتي</h3>
+      <button class="modal-close" onclick="closeModal('ordersModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body" id="ordersModalBody"></div>
+  </div>
+</div>
+
+<!-- Wishlist Modal -->
+<div class="modal-overlay" id="wishlistModal">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <h3><i class="fas fa-heart"></i> المفضلة</h3>
+      <button class="modal-close" onclick="closeModal('wishlistModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body" id="wishlistModalBody"></div>
+  </div>
+</div>
+
+<!-- Exchange Modal -->
+<div class="modal-overlay" id="exchangeModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3><i class="fas fa-exchange-alt"></i> استبدال جهازك</h3>
+      <button class="modal-close" onclick="closeModal('exchangeModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><label>ماركة الجهاز القديم</label><input type="text" id="exBrand" placeholder="مثال: Samsung"></div>
+      <div class="form-group"><label>اسم الموديل</label><input type="text" id="exModel" placeholder="مثال: Galaxy S22"></div>
+      <div class="form-group"><label>حالة الجهاز</label>
+        <select id="exCondition">
+          <option>ممتازة</option><option>جيدة</option><option>مقبولة</option>
+        </select>
+      </div>
+      <div class="form-group"><label>رقم الهاتف للتواصل</label><input type="tel" id="exPhone" placeholder="0555 XX XX XX"></div>
+      <button class="btn-red full-width" onclick="submitExchange()"><i class="fas fa-paper-plane"></i> أرسل الطلب</button>
+    </div>
+  </div>
+</div>
+
+<!-- Maintenance Modal -->
+<div class="modal-overlay" id="maintenanceModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3><i class="fas fa-wrench"></i> احجز موعد صيانة</h3>
+      <button class="modal-close" onclick="closeModal('maintenanceModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><label>الاسم</label><input type="text" id="mName" placeholder="اسمك"></div>
+      <div class="form-group"><label>رقم الهاتف</label><input type="tel" id="mPhone" placeholder="0555 XX XX XX"></div>
+      <div class="form-group"><label>نوع الجهاز</label><input type="text" id="mDevice" placeholder="مثال: iPhone 13"></div>
+      <div class="form-group"><label>نوع المشكلة</label>
+        <select id="mIssue">
+          <option>تغيير شاشة</option><option>تغيير بطارية</option><option>إصلاح الشحن</option><option>برمجيات</option><option>أخرى</option>
+        </select>
+      </div>
+      <button class="btn-red full-width" onclick="submitMaintenance()"><i class="fas fa-calendar-check"></i> احجز الموعد</button>
+    </div>
+  </div>
+</div>
+
+<!-- Success Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- ===================================== -->
+<!-- =========== ADMIN PANEL ============ -->
+<!-- ===================================== -->
+<div class="admin-overlay" id="adminPanel" style="display:none">
+  <div class="admin-container">
+    <div class="admin-sidebar">
+      <div class="admin-logo">
+        <i class="fas fa-shield-alt"></i>
+        <span>لوحة التحكم</span>
+      </div>
+      <nav class="admin-nav">
+        <a href="#" class="admin-nav-item active" onclick="showAdminTab('products')"><i class="fas fa-mobile-alt"></i> المنتجات</a>
+        <a href="#" class="admin-nav-item" onclick="showAdminTab('orders')"><i class="fas fa-box"></i> الطلبات</a>
+        <a href="#" class="admin-nav-item" onclick="showAdminTab('customers')"><i class="fas fa-users"></i> العملاء</a>
+        <a href="#" class="admin-nav-item" onclick="showAdminTab('stats')"><i class="fas fa-chart-bar"></i> الإحصائيات</a>
+      </nav>
+      <button class="admin-close-btn" onclick="closeAdmin()"><i class="fas fa-times"></i> إغلاق</button>
+    </div>
+    <div class="admin-main">
+
+      <!-- Products Tab -->
+      <div class="admin-tab" id="tab-products">
+        <div class="admin-tab-header">
+          <h2><i class="fas fa-mobile-alt"></i> إدارة المنتجات</h2>
+          <button class="btn-red" onclick="openAddProduct()"><i class="fas fa-plus"></i> إضافة منتج</button>
+        </div>
+        <div class="admin-table-wrapper">
+          <table class="admin-table" id="adminProductsTable">
+            <thead>
+              <tr><th>الصورة</th><th>الاسم</th><th>السعر</th><th>التخفيض</th><th>الماركة</th><th>المخزون</th><th>النوع</th><th>إجراءات</th></tr>
+            </thead>
+            <tbody id="adminProductsBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Orders Tab -->
+      <div class="admin-tab" id="tab-orders" style="display:none">
+        <div class="admin-tab-header"><h2><i class="fas fa-box"></i> إدارة الطلبات</h2></div>
+        <div class="admin-table-wrapper">
+          <table class="admin-table">
+            <thead><tr><th>رقم الطلب</th><th>العميل</th><th>الهاتف</th><th>المنتجات</th><th>الإجمالي</th><th>طريقة الدفع</th><th>الحالة</th><th>التاريخ</th></tr></thead>
+            <tbody id="adminOrdersBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Customers Tab -->
+      <div class="admin-tab" id="tab-customers" style="display:none">
+        <div class="admin-tab-header"><h2><i class="fas fa-users"></i> إدارة العملاء</h2></div>
+        <div class="admin-table-wrapper">
+          <table class="admin-table">
+            <thead><tr><th>الاسم</th><th>البريد</th><th>الهاتف</th><th>تاريخ التسجيل</th><th>عدد الطلبات</th></tr></thead>
+            <tbody id="adminCustomersBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Stats Tab -->
+      <div class="admin-tab" id="tab-stats" style="display:none">
+        <div class="admin-tab-header"><h2><i class="fas fa-chart-bar"></i> الإحصائيات</h2></div>
+        <div class="stats-cards" id="adminStatsCards"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Add/Edit Product Modal (inside admin) -->
+<div class="modal-overlay" id="productFormModal">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <h3 id="productFormTitle">إضافة منتج جديد</h3>
+      <button class="modal-close" onclick="closeModal('productFormModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="editProductId">
+      <div class="form-row">
+        <div class="form-group"><label>اسم المنتج *</label><input type="text" id="pName" placeholder="مثال: iPhone 15 Pro Max"></div>
+        <div class="form-group"><label>الماركة *</label>
+          <select id="pBrand">
+            <option value="apple">Apple</option><option value="samsung">Samsung</option><option value="xiaomi">Xiaomi</option>
+            <option value="realme">Realme</option><option value="tecno">Tecno</option><option value="infinix">Infinix</option><option value="oneplus">OnePlus</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>السعر (دج) *</label><input type="number" id="pPrice" placeholder="0"></div>
+        <div class="form-group"><label>السعر الأصلي (دج)</label><input type="number" id="pOldPrice" placeholder="0 (اختياري)"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>التقييم (1-5)</label><input type="number" id="pRating" min="1" max="5" step="0.1" value="4.5"></div>
+        <div class="form-group"><label>المخزون *</label><input type="number" id="pStock" min="0" value="10"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>النوع</label>
+          <select id="pType"><option value="phone">هاتف</option><option value="accessory">إكسسوار</option></select>
+        </div>
+        <div class="form-group"><label>عرض اليوم؟</label>
+          <select id="pFlash"><option value="false">لا</option><option value="true">نعم</option></select>
+        </div>
+      </div>
+      <div class="form-group"><label>رابط الصورة *</label><input type="url" id="pImage" placeholder="https://..."></div>
+      <div class="form-group"><label>المواصفات (كل مواصفة في سطر)</label>
+        <textarea id="pSpecs" rows="4" placeholder="256GB تخزين&#10;8GB رام&#10;بطارية 4352 mAh&#10;شاشة 6.7 بوصة"></textarea>
+      </div>
+      <div class="form-group"><label>الوصف</label><textarea id="pDesc" rows="3" placeholder="وصف مختصر للمنتج..."></textarea></div>
+      <button class="btn-red full-width" onclick="saveProduct()"><i class="fas fa-save"></i> حفظ المنتج</button>
+    </div>
+  </div>
+</div>
+
+<!-- Search Results Page -->
+<div class="search-results-overlay" id="searchResultsPage" style="display:none">
+  <div class="container">
+    <div class="search-results-header">
+      <button onclick="closeSearchResults()"><i class="fas fa-arrow-right"></i> رجوع</button>
+      <h2 id="searchResultsTitle">نتائج البحث</h2>
+    </div>
+    <!-- Filters -->
+    <div class="search-filters">
+      <div class="filter-group">
+        <label>الماركة:</label>
+        <select id="filterBrand" onchange="applyFilters()">
+          <option value="">الكل</option>
+          <option value="apple">Apple</option><option value="samsung">Samsung</option><option value="xiaomi">Xiaomi</option>
+          <option value="realme">Realme</option><option value="tecno">Tecno</option><option value="infinix">Infinix</option><option value="oneplus">OnePlus</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>نطاق السعر (دج):</label>
+        <input type="number" id="filterMinPrice" placeholder="من" onchange="applyFilters()">
+        <input type="number" id="filterMaxPrice" placeholder="إلى" onchange="applyFilters()">
+      </div>
+      <div class="filter-group">
+        <label>الترتيب:</label>
+        <select id="filterSort" onchange="applyFilters()">
+          <option value="">الافتراضي</option>
+          <option value="price-asc">السعر: من الأقل</option>
+          <option value="price-desc">السعر: من الأعلى</option>
+          <option value="rating">التقييم</option>
+        </select>
+      </div>
+    </div>
+    <div class="products-grid" id="searchResultsGrid"></div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
